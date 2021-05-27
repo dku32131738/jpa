@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:src/main/resources/workspace.db
+    driver-class-name: org.sqlite.JDBC  
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: com.leejb.jpa.workspace.dialect.SQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+logging.level:
+  org.hibernate.SQL: debug
