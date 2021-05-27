@@ -25,7 +25,7 @@ import lombok.ToString;
 public class Jdbc {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "jdbc_id")
 	private int id;
 	private String name;

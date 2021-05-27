@@ -15,7 +15,6 @@ import com.leejb.jpa.workspace.entity.Feature;
 import com.leejb.jpa.workspace.entity.Jdbc;
 
 @SpringBootTest
-@Transactional
 @Rollback(false)
 public class FeatureRepositoryTest {
 	
@@ -41,6 +40,7 @@ public class FeatureRepositoryTest {
 	public void findJdbc() {
 		findJdbc = jdbcRepository.findOneByName("oracle").orElse(null);
 		Assertions.assertNotNull(findJdbc);
+		Assertions.assertEquals(findJdbc.getId(),1);
 		Assertions.assertEquals(findJdbc.getName(),"oracle");
 		Assertions.assertEquals(findJdbc.getUser(),"system");
 		Assertions.assertEquals(findJdbc.getPassword(),"ictway");
@@ -48,7 +48,7 @@ public class FeatureRepositoryTest {
 	
 	@Test
 	public void saveFeature() {
-		Feature feature = new Feature("polygon",5186,"polygon","oracle",
+		Feature feature = new Feature("polygon",5186,"polygon",jdbcRepository.findAll().get(0),
 				"    SELECT GID_0, NAME_0,sdo_util.to_wkbgeometry(geometry) AS geom\r\n"
 				+ "      FROM korea_4326\r\n"
 				+ "     WHERE SDO_RELATE(GEOMETRY,SDO_GEOMETRY(?, 4326),'mask=anyinteract querytype=WINDOW') = 'TRUE'",
@@ -64,7 +64,7 @@ public class FeatureRepositoryTest {
 		Assertions.assertNotNull(findFeature);
 		Assertions.assertEquals(findFeature.getName(),"polygon");
 		Assertions.assertEquals(findFeature.getFeatureTypeName(),"polygon");
-		Assertions.assertEquals(findFeature.getJdbc(),jdbcRepository.findOneByName("oracle").get().getName());
+		Assertions.assertEquals(findFeature.getJdbc().getId(),jdbcRepository.findAll().get(0).getId());
 	}
 	
 }

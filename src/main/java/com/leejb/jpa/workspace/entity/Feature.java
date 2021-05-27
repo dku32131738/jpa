@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -24,7 +25,7 @@ import lombok.ToString;
 public class Feature {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	@Column(name = "feature_id")
 	private int id;
 	private String name;
@@ -32,11 +33,15 @@ public class Feature {
 	private String featureTypeName;
 	private String featureTypeNamespace;
 	private String FeatureTypePrefix;
-	private String jdbc;
+	
+	@ManyToOne
+	@JoinColumn(name = "jdbc_Id")
+	private Jdbc jdbc;
+	
 	private String sqlStatement;
 	private String bboxStatement;
 
-	public Feature(String name, int srs, String type, String jdbc, String query, String bboxQuery) {
+	public Feature(String name, int srs, String type, Jdbc jdbc, String query, String bboxQuery) {
 		this.name = name;
 		this.storageCRS = "EPSG:" + srs;
 		this.featureTypeName = type;

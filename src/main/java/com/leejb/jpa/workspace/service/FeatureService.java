@@ -19,13 +19,13 @@ public class FeatureService {
 	private static final Logger LOG = getLogger(FeatureService.class);
 	
 	public Feature save(String name, int srs, String type, Jdbc jdbc, String query, String bboxQuery) {
-		Feature feature = new Feature(name,srs,type,jdbc.getName(),query,bboxQuery);
+		Feature feature = new Feature(name,srs,type,jdbc,query,bboxQuery);
 		featureRepository.save(feature);
 		return feature;
 	}
 	
 	public String getTypeInOracle(String name) {
-		
+		String url = featureRepository.findOneByName(name).orElse(null).getJdbc().getUrl();
 		return null;
 	}
 }
