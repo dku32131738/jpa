@@ -35,7 +35,7 @@ public class Feature {
 	private String FeatureTypePrefix;
 	
 	@ManyToOne
-	@JoinColumn(name = "jdbc_Id")
+	@JoinColumn(name = "jdbc_id")
 	private Jdbc jdbc;
 	
 	private String sqlStatement;

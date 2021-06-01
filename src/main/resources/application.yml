@@ -1,7 +1,8 @@
 spring:
   datasource:
     url: jdbc:sqlite:src/main/resources/workspace.db
-    driver-class-name: org.sqlite.JDBC  
+    driver-class-name: org.sqlite.JDBC
+    hikari.maximum-pool-size: 4
   jpa:
     hibernate:
       ddl-auto: create
@@ -9,5 +10,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  security:
+    user:
+      name: ictway
+      password: ictway001
 logging.level:
   org.hibernate.SQL: debug
